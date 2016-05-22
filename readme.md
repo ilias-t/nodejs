@@ -89,6 +89,8 @@ Initialize new Node project with NPM: npm init.
 Install NPM packages: npm install --save express.
 NPM works with package.json, which is a list of project information and dependencies that can be installed on other computers and servers.
 
+> We should also add `node_modules` to a `.gitignore` file so it is not checked into git.  Future developers can just run `npm install` to get the packages listed in `package.json`
+
 ## Node's API Self-Exploration
 
 <!--
