@@ -12,7 +12,7 @@ JavaScript has been a computer language exclusive to the browser; that is, until
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
-* Explain what Node.js is & why it exists
+* Explain what Node is & why it exists
 * Compare and contrast Node's API with the DOM's API
 * Spin up a simple web server using node
 * Use organize code into modules and require it where necessary
@@ -24,22 +24,33 @@ JavaScript has been a computer language exclusive to the browser; that is, until
 * Navigate the terminal
 * Have a proficiency in JavaScript
 
-## What is Node.js?
+## What is Node?
 
-The makers of Node.js took javascript (which normally only runs in the browser) and made it available in your computer (on the server side). They took Google's V8 JavaScript Engine and gave it the ability to compile JS programs into machine code.
+The makers of Node took javascript (which normally only runs in the browser) and made it available in your computer (on the server side). They took Google's V8 JavaScript Engine and gave it the ability to compile JS programs into machine code.
 
-...RYAN DAHL
+####Ryan Dahl
 
-...Non Blocking(?)
+* Creator Ryan Dahl [demonstrating Node](https://www.youtube.com/watch?v=jo_B4LTHi3I).
 
-#### Installing Node.js
+####The Event Loop
 
-To check if we already have Node installed, type: ``node -v`` in terminal. You will see the Node version if it's installed.
+![node event loop](http://i.stack.imgur.com/BTm1H.png)
 
-If it's not installed, you can install from the Node.js website, or better yet, use Homebrew like this:
-```
-brew install node
-```
+Node really shines when it comes to heavy input-output type operations. This doesn't mean that other languages aren't capable of the same thing, it's just that by using the **Event Loop** *Node is "non-blocking" by default*.
+
+>**Blocking**
+
+>Imagine a paper delivery boy riding on his bike delivering papers every morning. Imagine he stops at each house, throws the paper on your doorstep, and waits to make sure you come out & pick it up before moving on to the next house. That would be what we'd call _blocking_ – each line of code finishes before moving on to the next line of code.
+
+>**Non-blocking**
+
+>Now, imagine the paperboy throwing the newspaper on your porch but never stopping his bicycle; 
+never stopping, he just keeps throwing papers on porches, so that by the time you pick it up he'll be 3 or 4 houses down. That would be _non-blocking_, or _asynchronous_.
+
+
+#### Installing Node
+
+To check if we already have Node installed, type: ``node -v`` in terminal. If not, install it now preferably using `brew` or `apt-get` depending on your operating system.
 
 #### Executing a JS program
 
@@ -56,6 +67,8 @@ node main.js
 
 ## Node's API Intro
 
+* [Node's API](https://nodejs.org/api/)
+
 ## File I/O
 
 * [](http://blog.modulus.io/absolute-beginners-guide-to-nodejs) (fs section)
@@ -70,6 +83,11 @@ node main.js
 * (Challenge: do this with another function...)
 
 ## npm
+
+NPM stands for Node Package Manager, and is a tool that allows us to easily download community-built Node packages.
+Initialize new Node project with NPM: npm init.
+Install NPM packages: npm install --save express.
+NPM works with package.json, which is a list of project information and dependencies that can be installed on other computers and servers.
 
 ## Node's API Self-Exploration
 
