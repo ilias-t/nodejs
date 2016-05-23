@@ -75,20 +75,75 @@ Try typing `global` into the node repl.
 
 What parts of the API interest you? Let's write down a few modules that you'll have time to research at the end on your own. During this workshop we'll discusss:
 
-* Assertion Testing
+* Assert
 * File System
 * HTTP
-* Modules
+* Module
 
-## Assertion
+## Assert
+
+####Truthiness
+
+The `assert` module allows us to test the truthiness of a piece of data in addition to comparing an actual result with an expected result. Using this module is how you could start integrating simple tests into your code.
+
+```javascript
+const SF = {city: "San Francisco", country: "USA"};
+const NY = {city: "New York", country: "USA"};
+const HK = {city: "Hong Kong", country: "China"};
+
+assert.equal(SF.country, NY.country);
+// OK
+
+assert.equal(HK.country, NY.country);
+// throws Assertion Error
+```
+
+####TDD-style tests
+
+Similarly, you can test a function's actual output against its expected output. (This is TDD!)
+
+```js
+function exclaim(phrase) { return "" }
+assert.equal(exclaim("hello there"), "hello there!");
+// throws an error!
+```
+
+> Challenge: How could we build the function `exclaim` so that our assertion test doesn't throw an error?
+
+<details><summary>Sample solution</summary>
+
+```js
+function exclaim(phrase) { return phrase + "!" }
+```
+</details>
 
 ## File I/O
 
-* [](http://blog.modulus.io/absolute-beginners-guide-to-nodejs) (fs section)
+####Writting to a file
+
+We can access the file system (fs) in node in order write to a file.
+
+```js
+const entry = "It was the best of times, it was the worst of times..."
+fs.writeFile('my-journal.txt', entry, function (err) {
+  if (err) throw err;
+  console.log("wrote to file!");
+});
+```
+And read it back as well!
+
+```js
+fs.readFile('my-journal.txt', 'utf8', function(err, data) {
+  if (err) throw err;
+  console.log(data);
+});
+```
+
+>Challenge: Use `fs` to write to a file called "my-next-destination.txt" and fill it with the place you'd like to visit most in the world and why. Then read it back!
 
 ## HTTP Server
 
-* [](http://blog.modulus.io/build-your-first-http-server-in-nodejs)
+* [d](http://blog.modulus.io/build-your-first-http-server-in-nodejs)
 
 ## Code Organization
 
