@@ -14,6 +14,8 @@ JavaScript has been a computer language exclusive to the browser; that is, until
 
 * Explain what Node is & why it exists
 * Compare and contrast Node's API with the DOM's API
+* Write simple assertion tests in Node
+* Perform file I/O in Node
 * Spin up a simple web server using node
 * Use organize code into modules and require it where necessary
 
@@ -28,9 +30,13 @@ JavaScript has been a computer language exclusive to the browser; that is, until
 
 The makers of Node took javascript (which normally only runs in the browser) and made it available in your computer (on the server side). They took Google's V8 JavaScript Engine and gave it the ability to compile JS programs into machine code.
 
+#### Installing Node
+
+To check if we already have Node installed, type: ``node -v`` in terminal. If not, install it now preferably using `brew` or `apt-get` depending on your operating system.
+
 ####Ryan Dahl
 
-* Creator Ryan Dahl [demonstrating Node](https://www.youtube.com/watch?v=jo_B4LTHi3I).
+Ryan Dahl is the creator of Node. Here he [demonstrates](https://www.youtube.com/watch?v=jo_B4LTHi3I) the technology for one for one of the first times publicly.
 
 ####The Event Loop
 
@@ -47,10 +53,35 @@ Node really shines when it comes to heavy input-output type operations. This doe
 >Now, imagine the paperboy throwing the newspaper on your porch but never stopping his bicycle; 
 never stopping, he just keeps throwing papers on porches, so that by the time you pick it up he'll be 3 or 4 houses down. That would be _non-blocking_, or _asynchronous_.
 
+####Example of non-blocking code
 
-#### Installing Node
+**non-blocking-demo.js**
 
-To check if we already have Node installed, type: ``node -v`` in terminal. If not, install it now preferably using `brew` or `apt-get` depending on your operating system.
+```js
+console.log("oh hai");
+
+setInterval(function() {
+  console.log("hello");
+}, 1000)
+
+setInterval(function() {
+  console.log("world");
+}, 1000)
+
+setTimeout(function(){
+  console.log("again, we just want to say");
+}, 2000)
+
+setTimeout(function(){
+  console.log("again again, we just want to say");
+}, 4000)
+```
+
+```bash
+node non-blocking-demo.js
+```
+
+There are several different processes all happening simultaneously and asynchronously in tandem. One of the processes does not block any of the others. They all can run independently.
 
 #### Executing a JS program
 
@@ -73,7 +104,7 @@ Try typing `global` into the node repl.
 
 >What does it return? How is this similar or different to the browser console?
 
-What parts of the API interest you? Let's write down a few modules that you'll have time to research at the end on your own. During this workshop we'll discusss:
+What parts of the API interest you? Let's write down a few modules that you'll have time to research at the end on your own. During this workshop we'll discuss:
 
 * Assert
 * File System
@@ -86,7 +117,11 @@ What parts of the API interest you? Let's write down a few modules that you'll h
 
 The `assert` module allows us to test the truthiness of a piece of data in addition to comparing an actual result with an expected result. Using this module is how you could start integrating simple tests into your code.
 
+**geo-assertions.js**
+
 ```javascript
+'use strict'
+const assert = require('assert');
 const SF = {city: "San Francisco", country: "USA"};
 const NY = {city: "New York", country: "USA"};
 const HK = {city: "Hong Kong", country: "China"};
@@ -98,11 +133,17 @@ assert.equal(HK.country, NY.country);
 // throws Assertion Error
 ```
 
+>Note: When using `const` or `let` you may run into this error: "SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode", which means in order to use them you have to run the file in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) by writing the string `'use strict'` at that top of the file. Strict mode throws more errors that could otherwise get unnoticed.
+
 ####TDD-style tests
 
 Similarly, you can test a function's actual output against its expected output. (This is TDD!)
 
+**exclaim-spec.js**
+
 ```js
+'use strict'
+const assert = require('assert');
 function exclaim(phrase) { return "" }
 assert.equal(exclaim("hello there"), "hello there!");
 // throws an error!
@@ -119,11 +160,15 @@ function exclaim(phrase) { return phrase + "!" }
 
 ## File I/O
 
-####Writting to a file
+####Writing to a file
 
 We can access the file system (fs) in node in order write to a file.
 
+**write-diary.js**
+
 ```js
+'use strict'
+const fs = require('fs');
 const entry = "It was the best of times, it was the worst of times..."
 fs.writeFile('my-journal.txt', entry, function (err) {
   if (err) throw err;
@@ -132,37 +177,95 @@ fs.writeFile('my-journal.txt', entry, function (err) {
 ```
 And read it back as well!
 
+**read-diary.js**
+
 ```js
+'use strict'
+const fs = require('fs');
 fs.readFile('my-journal.txt', 'utf8', function(err, data) {
   if (err) throw err;
   console.log(data);
 });
 ```
 
->Challenge: Use `fs` to write to a file called "my-next-destination.txt" and fill it with the place you'd like to visit most in the world and why. Then read it back!
+>Challenge: Use `fs` to write to a file called "dream-destination.txt" and fill it with the place you'd like to visit most in the world and why. Then read it back!
 
 ## HTTP Server
 
-* [d](http://blog.modulus.io/build-your-first-http-server-in-nodejs)
+>Question: What is the purpose of a server?
+
+Generally I don't want people to be able to access any data or files on my computer, so they should remain inaccessible to other connected to the same network as me by default. However, it could be nice if I could *share* or "serve up" specific data or files at my choosing. Enter the server!
+
+**server.js**
+
+```js
+'use strict'
+const http = require('http');
+// defines some port to listen to
+const PORT=8080;
+
+// handles requests coming in and sends a response to each
+function handleRequests(request, response){
+    response.end("<h1>It's alive!</h1>");
+}
+
+// create a server
+const server = http.createServer(handleRequests);
+
+// start the server
+server.listen(PORT, function(){
+    console.log("listening on port", PORT); // this code is run when the server starts
+});
+```
+
+Once we have our server running others on our same network can hit the server on another computer from the same network simply by going to the server's IP address followed by the port.
+
+To find your IP address:
+
+```bash
+ifconfig | grep "inet " | grep -v 127.0
+```
+
+It will be the first IP address displayed.
+
+>Challenge: start a server on port 3000 that displays your name. Hit someone else's server from your computer.
 
 ## Code Organization
 
-* (Split out `handleRequests` into seperate file)
-* (Challenge: do this with another function...)
+Once our files start getting larger it will be import to split them out into separate **modules**. Let's create a script `randomizer.js` that will also contain a function with the same name. If we export it, we can require it in any other script. 
 
-## npm
+**randomizer.js**
 
-npm started a the "node package manager", but accoring to npm it now apparently doesn't stand for anything. Either way, it's a tool that allows us to easily download community-built node modules.
+```js
+'use strict'
 
-You can initialize a new node project using npm with `npm init -y` and install packages like `lodash` with `npm install --save lodash`.
+// returns a random number between a min (inclusive) and max (exclusive) range
+function randomizer(min, max) {
+  return parseInt(Math.random() * (max - min) + min);
+}
 
-npm uses a file called `package.json` to track *dependencies* and *metadata* assciated with the project.
+module.exports = randomizer;
+```
 
-A seperate `node_modules` directory is where the modules your project requires will be housed. When using git, be mindful to add `node_modules` to a `.gitignore` file so it is *not tracked by git*.
+Now assuming we want to run a lottery, we can use our randomizer to help us do so. All we need to do is require it with a relative path in order to import anything the `randomizer.js` script is exporting.
 
-At this point you can share the project code and future developers will run `npm install` to get the packages listed in `package.json` (instead of through git), which save git from also having to track a large `node_modules` folder.
+**lottery.js**
 
-> Challenge: initialize a new project and use npm to require `express` in it. Follow the best practices listed above so you could easily share the project with another developer.
+```js
+'use strict'
+const randomNumber = require("./randomizer");
+
+const winningNumbers = [];
+for(let i = 0; i < 10; i++) {
+  winningNumbers.push(randomNumber(0,100));
+}
+
+console.log("tonight's winning numbers are", winningNumbers, "!");
+```
+
+Now let's try `node lottery.js`. Did we win!?
+
+>Challenge: For the previous `server.js` example, split out the `handleRequests` function into a separate script and require it back into your server.
 
 ## Node's API Self-Exploration
 
@@ -172,7 +275,7 @@ ACTIVITY: Developer's vote on the parts of the API that seem most interesting. W
 
 -->
 
-Going back to the many parts of [Node's API](https://nodejs.org/api/), take 10 minutes for your table to research a module that we didn't discuss but interests your group. Be prepared to have someone in the group speak about it for a few minutes thereafter.
+Time permitting, go back to a part of the [Node's API](https://nodejs.org/api/) your table is interested in researching. Take 10 minutes to do so and briefly summarize what you learned in writing.
 
 Suggested modules include (but not limited to):
 
@@ -185,14 +288,13 @@ Suggested modules include (but not limited to):
 
 
 ## Closing Thoughts
-<!--
-- review objectives & hierarchy of importance
-- look ahead & link to future workshops
-- clarify expectations and what developers should know by now
-- reiterate “the why” with a perspective of your intentions
-- create an active recall
-- Check for understanding
--->
+
+* What is Node.js?
+* What is the most global object in the Node environment?
+* Why is Node's event loop useful?
+
 ## Additional Resources
 
-* [What is npm](https://www.youtube.com/watch?v=x03fjb2VlGY)
+* [What is npm?](https://www.youtube.com/watch?v=x03fjb2VlGY) (to be discussed next workshop)
+* [Ryan Dahl Demo](https://www.youtube.com/watch?v=jo_B4LTHi3I)
+* [Understanding the event loop](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
