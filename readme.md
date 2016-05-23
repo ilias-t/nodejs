@@ -96,7 +96,7 @@ Write and execute some code in a file! In your working directory:
 mkdir first-node
 cd first-node
 touch main.js
-echo "console.log('hello world!');" >> main.js
+echo "console.log('hello world');" >> main.js
 node main.js
 # hello world!
 ```
