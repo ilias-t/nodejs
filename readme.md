@@ -67,7 +67,20 @@ node main.js
 
 ## Node's API Intro
 
-* [Node's API](https://nodejs.org/api/)
+Let's take at some parts of the [Node API](https://nodejs.org/api/). We can jump into the Node environment by simply typing `node` in the terminals.
+
+Try typing `global` into the node repl.
+
+>What does it return? How is this similar or different to the browser console?
+
+What parts of the API interest you? Let's write down a few modules that you'll have time to research at the end on your own. During this workshop we'll discusss:
+
+* Assertion Testing
+* File System
+* HTTP
+* Modules
+
+## Assertion
 
 ## File I/O
 
@@ -84,12 +97,17 @@ node main.js
 
 ## npm
 
-NPM stands for Node Package Manager, and is a tool that allows us to easily download community-built Node packages.
-Initialize new Node project with NPM: npm init.
-Install NPM packages: npm install --save express.
-NPM works with package.json, which is a list of project information and dependencies that can be installed on other computers and servers.
+npm started a the "node package manager", but accoring to npm it now apparently doesn't stand for anything. Either way, it's a tool that allows us to easily download community-built node modules.
 
-> We should also add `node_modules` to a `.gitignore` file so it is not checked into git.  Future developers can just run `npm install` to get the packages listed in `package.json`
+You can initialize a new node project using npm with `npm init -y` and install packages like `lodash` with `npm install --save lodash`.
+
+npm uses a file called `package.json` to track *dependencies* and *metadata* assciated with the project.
+
+A seperate `node_modules` directory is where the modules your project requires will be housed. When using git, be mindful to add `node_modules` to a `.gitignore` file so it is *not tracked by git*.
+
+At this point you can share the project code and future developers will run `npm install` to get the packages listed in `package.json` (instead of through git), which save git from also having to track a large `node_modules` folder.
+
+> Challenge: initialize a new project and use npm to require `express` in it. Follow the best practices listed above so you could easily share the project with another developer.
 
 ## Node's API Self-Exploration
 
@@ -99,7 +117,16 @@ ACTIVITY: Developer's vote on the parts of the API that seem most interesting. W
 
 -->
 
-* [Node's API](https://nodejs.org/api/)
+Going back to the many parts of [Node's API](https://nodejs.org/api/), take 10 minutes for your table to research a module that we didn't discuss but interests your group. Be prepared to have someone in the group speak about it for a few minutes thereafter.
+
+Suggested modules include (but not limited to):
+
+* Debugger
+* Crypto
+* Error
+* REPL
+* Readline
+* URL
 
 
 ## Closing Thoughts
@@ -113,4 +140,4 @@ ACTIVITY: Developer's vote on the parts of the API that seem most interesting. W
 -->
 ## Additional Resources
 
-...
+* [What is npm](https://www.youtube.com/watch?v=x03fjb2VlGY)
