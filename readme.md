@@ -298,6 +298,7 @@ Suggested [modules](https://nodejs.org/api/) include (but not limited to):
 * What is Node.js?
 * What is the most global object in the Node environment?
 * Why is Node's event loop useful?
+* In Node, how do we organize code into modules to require elsewhere?
 
 ## Additional Resources
 
