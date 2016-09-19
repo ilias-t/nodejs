@@ -301,6 +301,6 @@ Suggested [modules](https://nodejs.org/api/) include (but not limited to):
 
 ## Additional Resources
 
-* [What is npm?](https://www.youtube.com/watch?v=x03fjb2VlGY) (to be discussed next workshop)
+* [What is npm?](https://www.youtube.com/watch?v=x03fjb2VlGY) (to be discussed...)
 * [Ryan Dahl Demo](https://www.youtube.com/watch?v=jo_B4LTHi3I)
 * [Understanding the event loop](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
