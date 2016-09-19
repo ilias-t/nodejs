@@ -284,14 +284,13 @@ ACTIVITY: Developer's vote on the parts of the API that seem most interesting. W
 
 Time permitting, go back to a part of the [Node's API](https://nodejs.org/api/) your table is interested in researching. Take 10 minutes to do so and briefly summarize what you learned in writing.
 
-Suggested modules include (but not limited to):
+Suggested [modules](https://nodejs.org/api/) include (but not limited to):
 
-* Debugger
-* Crypto
-* Error
-* REPL
-* Readline
-* URL
+* [Debugger](https://nodejs.org/api/debugger.html)
+* [Crypto](https://nodejs.org/api/crypto.html)
+* [REPL](https://nodejs.org/api/repl.html)
+* [Readline](https://nodejs.org/api/readline.html)
+* [URL](https://nodejs.org/api/url.html)
 
 
 ## Closing Thoughts
