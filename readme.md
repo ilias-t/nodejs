@@ -7,7 +7,7 @@
 
 # NodeJS
 
-### Why is this important?
+### Why is thisas important?
 <!-- framing the "why" in big-picture/real world examples -->
 *This workshop is important because:*
 
@@ -120,7 +120,7 @@ What parts of the API interest you? Let's write down a few modules that you'll h
 
 ####Truthiness
 
-The `assert` module allows us to test the truthiness of a piece of data in addition to comparing an actual result with an expected result. Using this module is how you could start integrating simple tests into your code.
+The [`assert`](https://nodejs.org/api/assert.html) module allows us to test the truthiness of a piece of data in addition to comparing an actual result with an expected result. Using this module is how you could start integrating simple tests into your code.
 
 **geo-assertions.js**
 
@@ -139,6 +139,8 @@ assert.equal(HK.country, NY.country);
 ```
 
 >Note: When using `const` or `let` you may run into this error: "SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode", which means in order to use them you have to run the file in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) by writing the string `'use strict'` at that top of the file. Strict mode throws more errors that could otherwise get unnoticed.
+
+>Note: Read more about using [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const), for immutable variables, and [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let), for mutable variables, in the newer versions of the language.
 
 ####TDD-style tests
 
