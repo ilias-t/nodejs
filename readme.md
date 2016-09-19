@@ -209,7 +209,7 @@ Generally I don't want people to be able to access any data or files on my compu
 'use strict'
 const http = require('http');
 // defines some port to listen to
-const PORT=8080;
+const PORT = 8080;
 
 // handles requests coming in and sends a response to each
 function handleRequests(request, response){
